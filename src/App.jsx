@@ -1,6 +1,9 @@
 import React from 'react';
-import Welcome from './components/Welcome';
 
-const App = () => <Welcome />;
+const App = () => (
+        <div>
+        <h1>React App</h1>
+        </div>
+);
 
 export default App;

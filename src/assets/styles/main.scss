@@ -2,4 +2,5 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import '../../components/**/style.scss';
+@import './general.scss';
+@import '../../components/**/*.scss';
