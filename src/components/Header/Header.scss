@@ -1,0 +1,29 @@
+.header {
+    @apply bg-white text-dark transition-all duration-500 ease-in-out;
+
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+
+    &--dark {
+        @apply bg-dark-blue text-white;
+    }
+
+    &__wrapper {
+        @apply flex items-center justify-between h-20 xxl:mx-20 xl:mx-10 lg:mx-5 mx-2;
+    }
+
+    &__title {
+        @apply text-h1 font-extrabold;
+    }
+
+    &__theme-switcher {
+        @apply flex items-center;
+
+        &--icon {
+            @apply mr-2 relative top-[3px];
+        }
+
+        &__label {
+            @apply text-text-medium-big font-semibold;
+        }
+    }
+}
