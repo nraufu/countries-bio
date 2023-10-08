@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import data from './data/data.json';
 import Header from './components/Header/Header';
+import CountriesListContainer from './containers/CountriesListContainer/CountriesListContainer';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -9,12 +10,10 @@ const App = () => {
     setDarkMode((prevValue) => !prevValue);
   };
 
-  console.log(data);
-  console.log("darkMode: ", darkMode);
-
   return (
     <>
       <Header isDarkMode={darkMode} onThemeChange={handleThemeChange} />
+      <CountriesListContainer countries={data} />
     </>
   );
 };
