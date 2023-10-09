@@ -8,7 +8,9 @@
     }
 
     &__wrapper {
-        @apply flex items-center justify-between h-20 xxl:mx-20 xl:mx-10 lg:mx-5 mx-2;
+        @include page-padding;
+
+        @apply flex items-center justify-between;
     }
 
     &__title {
@@ -19,11 +21,11 @@
         @apply flex items-center;
 
         &--icon {
-            @apply mr-2 relative top-[3px];
+            @apply mr-2 font-extrabold flex;
         }
 
         &__label {
-            @apply text-text-medium-big font-semibold;
+            @apply text-medium-big font-semibold;
         }
     }
 }

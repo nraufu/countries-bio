@@ -3,4 +3,6 @@
 @import 'tailwindcss/utilities';
 
 @import './general.scss';
+@import './mixins.scss';
 @import '../../components/**/*.scss';
+@import '../../containers/**/*.scss';

@@ -1,0 +1,9 @@
+.countries-list-container {
+    @include page-padding;
+
+    @apply mt-6 lg:mt-12;
+
+    &__filters {
+        @apply flex items-center justify-between flex-wrap;
+    }
+}

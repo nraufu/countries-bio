@@ -5,15 +5,31 @@ import CountriesListContainer from './containers/CountriesListContainer/Countrie
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [region, setRegion] = useState('');
 
   const handleThemeChange = () => {
     setDarkMode((prevValue) => !prevValue);
   };
 
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const handleRegionChange = (reg) => {
+    setRegion(reg);
+  };
+
   return (
     <>
       <Header isDarkMode={darkMode} onThemeChange={handleThemeChange} />
-      <CountriesListContainer countries={data} />
+      <CountriesListContainer
+        countries={data}
+        searchInput={searchInput}
+        region={region}
+        onSearchInputChange={handleSearchInputChange}
+        onRegionChange={handleRegionChange}
+      />
     </>
   );
 };

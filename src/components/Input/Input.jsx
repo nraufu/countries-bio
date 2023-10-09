@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 const Input = ({
-  label, type, value, onChange, onClick, options,
+  label, type, value, onChange, options,
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (event.target.closest('.input--select')) return;
+      setIsDropdownOpen(false);
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isDropdownOpen]);
+
+  const selectInputClass = clsx('input input--select', {
+    'input--select__open': isDropdownOpen,
+  });
+
+  const handleOptionsDropdown = () => {
+    setIsDropdownOpen((prevValue) => !prevValue);
+  };
+
+  const handleOptionSelection = (option) => {
+    setIsDropdownOpen(false);
+    onChange(option.label);
+  };
+
   switch (type) {
     case 'search':
       return (
         <div className="input input--search">
-          <ion-icon name="search-outline" className="input__icon"></ion-icon>
+          <span className="input--search__icon">
+            <ion-icon name="search-outline"></ion-icon>
+          </span>
           <input
             type="text"
-            className="input__field"
+            className="input--search__field"
             placeholder={label}
             value={value}
             onChange={onChange}
@@ -20,29 +51,39 @@ const Input = ({
       );
     case 'select':
       return (
-        <div className="input input--select">
-            <div role='button' className="input--select__field">
-                <span className="input--select__field__label">{label}</span>
-                <ion-icon name="chevron-down-outline" className="input--select__field__icon"></ion-icon>
-            </div>
-            <ul className="input--select__options">
-                {options.map((option) => (
-                    <li key={option.id} className="input--select__option">
-                        <a href="#" role='button' onClick={onClick}>{option.label}</a>
-                    </li>
-                ))}
-            </ul>
+        <div className={selectInputClass}>
+          <div
+            role="button"
+            className="input--select__field"
+            onClick={handleOptionsDropdown}
+          >
+            <span className="input--select__field--label">{value || label}</span>
+            <span className="input--select__field--icon">
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </span>
+          </div>
+          <ul className="input--select__options">
+            {options.map((option) => (
+              <li key={option.id} className="input--select__options--item">
+                <a href="#" role="button" onClick={() => handleOptionSelection(option)}>
+                  {option.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       );
 
     default:
-      return <input
-        type="text"
-        className="input__field"
-        placeholder="Search for a country..."
-        value={value}
-        onChange={onChange}
-      />;
+      return (
+        <input
+          type="text"
+          className="input__field"
+          placeholder="Search for a country..."
+          value={value}
+          onChange={onChange}
+        />
+      );
   }
 };
 
@@ -50,9 +91,9 @@ Input.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.optional,
-  onClick: PropTypes.func.optional,
-  options: PropTypes.array.optional,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  options: PropTypes.array,
 };
 
 export default Input;

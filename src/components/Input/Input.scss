@@ -1,0 +1,72 @@
+.input {
+  //search input type
+  &--search {
+    @apply h-12 lg:h-14 w-full md:w-1/2 lg:w-[33.3%] rounded-[5px] flex items-center py-[16px] lg:py-[19px] px-[32px];
+
+    background-color: #fff;
+    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+    &__icon {
+      @apply text-[18px] mr-[26px] lg:mr-6 text-gray-dark flex;
+    }
+
+    &__field {
+      @apply w-full outline-none border-0 text-small-normal lg:text-medium-alt text-gray-dark font-medium;
+
+      &::placeholder {
+        @apply text-gray-light font-normal;
+      }
+    }
+  }
+
+  //select input type
+  &--select {
+    $self: &;
+
+    @apply relative;
+
+    &__open {
+        #{$self}__field {
+            &--icon {
+                @apply -rotate-180;
+            }
+        }
+
+        #{$self}__options {
+            @apply opacity-100 top-[100%];
+        }
+    }
+
+    &__field {
+      @apply h-12 lg:h-14 w-[200px] rounded-[5px] flex items-center justify-between py-[18px] px-[24px];
+
+      background-color: #fff;
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+      &--label {
+        @apply text-small-normal lg:text-medium-alt text-dark;
+      }
+
+      &--icon {
+        @apply flex text-[12px] text-dark transform rotate-0 transition-all duration-500 ease-in-out;
+      }
+    }
+
+    &__options {
+      @apply absolute top-[80%] opacity-0 left-0 w-full rounded-[5px] overflow-hidden z-10 mt-1 px-6 py-4 flex flex-col transition-all duration-500 ease-in-out;
+
+      background-color: #fff;
+      box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+      &--item {
+        &:not(:last-child) {
+          @apply mb-2;
+        }
+
+        a {
+            @apply text-small-normal lg:text-medium-alt;
+        }
+      }
+    }
+  }
+}
