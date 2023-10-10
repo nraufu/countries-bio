@@ -3,12 +3,32 @@ import PropTypes from 'prop-types';
 
 const Card = ({ details }) => (
   <div className="card">
-    <img src={details.image} alt={details.imgAlt} className="card__image" />
+    <div className="card__image">
+      <img src={details.flags?.svg || details.flags?.png} alt={details.demonym} />
+    </div>
+
     <div className="card__details">
-      <h2 className="card__details--name">{details.countryName}</h2>
-      <span className="card__details--population">Population: {details.countryPopulation}</span>
-      <span className="card__details--region">Region: {details.CountryRegion}</span>
-      <span className="card__details--capital">Capital: {details.countryCapital}</span>
+      <h2 className="card__details--title">{details.name}</h2>
+      <p className="card__details--description">
+        <span className="card__details--description__label">
+          Population:
+        </span>
+        <span className="card__details--description__value">
+          {details.population.toLocaleString()}
+        </span>
+      </p>
+      <p className="card__details--description">
+        <span className="card__details--description__label">Region: </span>
+        <span className="card__details--description__value">
+          {details.region}
+        </span>
+      </p>
+      <p className="card__details--description">
+        <span className="card__details--description__label">Capital: </span>
+        <span className="card__details--description__value">
+          {details.capital}
+        </span>
+      </p>
     </div>
   </div>
 );

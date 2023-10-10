@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../components/Input/Input';
-// import Card from '../../components/Card/Card';
+import Card from '../../components/Card/Card';
 
 const CountriesListContainer = ({
+  countriesList,
   searchInput,
   region,
   onSearchInputChange,
@@ -38,24 +39,24 @@ const CountriesListContainer = ({
         />
       </div>
 
-      <div className="countries-list-container__list">
-        {/* <Card
-        details={{
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_Taliban.svg',
-          imgAlt: 'Afghanistan Flag',
-          countryName: 'Afghanistan',
-          countryPopulation: '27657145',
-          CountryRegion: 'Asia',
-          countryCapital: 'Kabul',
-        }}
-      /> */}
-      </div>
+      <ul className="countries-list-container__list">
+        {countriesList.map((country) => (
+          <li
+            className="countries-list-container__list--item"
+            key={country.numericCode}
+          >
+            <a href="#" className="countries-list-container__list--link">
+                <Card details={country} />
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 CountriesListContainer.propTypes = {
+  countriesList: PropTypes.array.isRequired,
   searchInput: PropTypes.string.isRequired,
   region: PropTypes.string.isRequired,
   onSearchInputChange: PropTypes.func.isRequired,
