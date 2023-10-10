@@ -9,4 +9,5 @@ module.exports = {
   'gray-light': '#C4C4C4',
   gray: '#979797',
   'gray-dark': '#848484',
+  inherit: 'inherit',
 };

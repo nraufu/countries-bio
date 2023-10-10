@@ -24,6 +24,21 @@ const App = () => {
     setCountriesList(filteredCountries);
   }, [searchInput, region]);
 
+  useEffect(() => {
+    if (darkMode) {
+      document.body.style.setProperty('--bodyBackgroundColor', '#202C36');
+      document.body.style.setProperty('--elementsBackgroundColor', '#2B3844');
+      document.body.style.setProperty('--textColor', '#fff');
+    }
+
+    // cleanup
+    return () => {
+      document.body.style.removeProperty('--bodyBackgroundColor');
+      document.body.style.removeProperty('--elementsBackgroundColor');
+      document.body.style.removeProperty('--textColor');
+    };
+  }, [darkMode]);
+
   const handleThemeChange = () => {
     setDarkMode((prevValue) => !prevValue);
   };

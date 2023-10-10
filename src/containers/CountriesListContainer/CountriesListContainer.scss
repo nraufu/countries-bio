@@ -1,12 +1,17 @@
 .countries-list-container {
     @include page-padding;
 
+    @apply h-full;
+
     &__filters {
         @apply flex items-center justify-between flex-wrap mt-6 lg:mt-12;
+
+        .input--search {
+            @apply mb-10 md:mb-0;
+        }
     }
 
     &__list {
-        @apply grid grid-flow-dense grid-cols-1 md:grid-cols-3 lg:grid-cols-4 my-6 md:mt-12 gap-10 lg:gap-[75px];
-
+        @apply grid grid-flow-dense grid-cols-1 md:grid-cols-3 lg:grid-cols-4 my-8 md:mt-12 gap-10 lg:gap-[75px];
     }
 }

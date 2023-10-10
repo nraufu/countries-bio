@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 
-const Header = ({ isDarkMode, onThemeChange }) => {
-  const headerClass = clsx('header', {
-    'header--dark': isDarkMode,
-  });
-
-  return (
-    <header className={headerClass}>
+const Header = ({ isDarkMode, onThemeChange }) => (
+    <header className="header">
       <div className="header__wrapper">
         <h1 className="header__title">Where in the world?</h1>
 
@@ -21,13 +15,12 @@ const Header = ({ isDarkMode, onThemeChange }) => {
             )}
           </span>
           <span className="header__theme-switcher--label">
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            Dark Mode
           </span>
         </button>
       </div>
     </header>
-  );
-};
+);
 
 Header.propTypes = {
   isDarkMode: PropTypes.bool.isRequired,

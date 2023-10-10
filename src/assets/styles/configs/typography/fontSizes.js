@@ -5,4 +5,5 @@ module.exports = {
   'medium-normal': ['14px', '16px'],
   'medium-alt': ['14px', '20px'],
   'small-normal': ['12px', '20px'],
+  'small-alt': ['12px', '1.5'],
 };
