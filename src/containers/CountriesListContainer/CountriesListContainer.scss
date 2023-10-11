@@ -12,6 +12,6 @@
     }
 
     &__list {
-        @apply grid grid-flow-dense grid-cols-1 md:grid-cols-3 lg:grid-cols-4 my-8 md:mt-12 gap-10 lg:gap-[75px];
+        @apply grid grid-flow-dense grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xxxl:grid-cols-5 my-8 md:mt-12 gap-10 lg:gap-[75px] px-[38px] md:px-0;
     }
 }
