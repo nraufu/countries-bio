@@ -3,24 +3,16 @@ import PropTypes from 'prop-types';
 import Input from '../../components/Input/Input';
 import Card from '../../components/Card/Card';
 
-const CountriesListContainer = ({
+const CountriesList = ({
+  regionsList,
   countriesList,
   searchInput,
   region,
   onSearchInputChange,
   onRegionChange,
-}) => {
-  const regions = [
-    { id: 1, label: 'Africa' },
-    { id: 2, label: 'America' },
-    { id: 3, label: 'Asia' },
-    { id: 4, label: 'Europe' },
-    { id: 5, label: 'Oceania' },
-  ];
-
-  return (
-    <div className="countries-list-container">
-      <div className="countries-list-container__filters">
+}) => (
+    <div className="countries-list">
+      <div className="countries-list__filters">
         {/* search */}
         <Input
           type="search"
@@ -35,27 +27,27 @@ const CountriesListContainer = ({
           label="Filter by Region"
           value={region}
           onChange={onRegionChange}
-          options={regions}
+          options={regionsList}
         />
       </div>
 
-      <ul className="countries-list-container__list">
+      <ul className="countries-list__list">
         {countriesList.map((country) => (
           <li
-            className="countries-list-container__list--item"
-            key={country.numericCode}
+            className="countries-list__list--item"
+            key={country.alpha2Code}
           >
-            <a href="#" className="countries-list-container__list--link">
+            <a href="#" className="countries-list__list--link">
                 <Card details={country} />
             </a>
           </li>
         ))}
       </ul>
     </div>
-  );
-};
+);
 
-CountriesListContainer.propTypes = {
+CountriesList.propTypes = {
+  regionsList: PropTypes.array.isRequired,
   countriesList: PropTypes.array.isRequired,
   searchInput: PropTypes.string.isRequired,
   region: PropTypes.string.isRequired,
@@ -63,4 +55,4 @@ CountriesListContainer.propTypes = {
   onRegionChange: PropTypes.func.isRequired,
 };
 
-export default CountriesListContainer;
+export default CountriesList;

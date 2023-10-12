@@ -28,9 +28,9 @@ const Input = ({
     setIsDropdownOpen((prevValue) => !prevValue);
   };
 
-  const handleOptionSelection = (option) => {
+  const handleOptionSelection = (selectedOption) => {
     setIsDropdownOpen(false);
-    onChange(option.label);
+    onChange(selectedOption);
   };
 
   switch (type) {
@@ -65,7 +65,7 @@ const Input = ({
           <ul className="input--select__options">
             {options.map((option) => (
               <li key={option.id} className="input--select__options--item">
-                <a href="#" role="button" onClick={() => handleOptionSelection(option)}>
+                <a href="#" role="button" onClick={() => handleOptionSelection(option.value)}>
                   {option.label}
                 </a>
               </li>

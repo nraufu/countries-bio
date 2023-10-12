@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import data from './data/data.json';
+import localData from './data/data.json';
 import Header from './components/Header/Header';
-import CountriesListContainer from './containers/CountriesListContainer/CountriesListContainer';
+import CountriesList from './pages/CountriesList/CountriesList';
+import { responseFormatter } from './helpers';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [region, setRegion] = useState('');
-  const [countriesList, setCountriesList] = useState(data);
+  const [countriesList, setCountriesList] = useState([]);
 
   useEffect(() => {
-    // handle search and region filters
-    const filteredCountries = data.filter((country) => {
-      const countryName = country.name.toLowerCase();
-      const countryRegion = country.region.toLowerCase();
+    (async () => {
+      try {
+        const response = await fetch(
+          'https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags,region,population,subregion,tld,languages,cca2,cca3,altSpellings,borders',
+        );
+        const responseData = await response.json();
+        const formatResponse = responseFormatter(responseData);
 
-      return (
-        countryName.includes(searchInput.toLowerCase())
-        && countryRegion.includes(region.toLowerCase())
-      );
-    });
-
-    setCountriesList(filteredCountries);
-  }, [searchInput, region]);
+        setCountriesList(formatResponse);
+      } catch (error) {
+        setCountriesList(localData);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -51,11 +53,25 @@ const App = () => {
     setRegion(reg);
   };
 
+  const filteredCountries = countriesList.filter(
+    (country) => country.name.toLowerCase().includes(searchInput.toLowerCase())
+      && (region === '' || country.region === region),
+  );
+
+  const worldRegions = [
+    { id: 1, label: 'Africa', value: 'Africa' },
+    { id: 2, label: 'America', value: 'Americas' },
+    { id: 3, label: 'Asia', value: 'Asia' },
+    { id: 4, label: 'Europe', value: 'Europe' },
+    { id: 5, label: 'Oceania', value: 'Oceania' },
+  ];
+
   return (
     <>
       <Header isDarkMode={darkMode} onThemeChange={handleThemeChange} />
-      <CountriesListContainer
-        countriesList={countriesList}
+      <CountriesList
+        regionsList={worldRegions}
+        countriesList={filteredCountries}
         searchInput={searchInput}
         region={region}
         onSearchInputChange={handleSearchInputChange}
