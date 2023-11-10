@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import localData from './data/data.json';
 import Header from './components/Header/Header';
 import CountriesList from './pages/CountriesList/CountriesList';
 import { responseFormatter } from './helpers';
+import { ThemeContext } from './contexts/ThemeContext';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [region, setRegion] = useState('');
   const [countriesList, setCountriesList] = useState([]);
+
+  const context = useContext(ThemeContext);
 
   useEffect(() => {
     (async () => {
@@ -21,13 +23,14 @@ const App = () => {
 
         setCountriesList(formatResponse);
       } catch (error) {
+        // fallback data for offline use
         setCountriesList(localData);
       }
     })();
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
+    if (context?.theme === 'dark') {
       document.body.style.setProperty('--bodyBackgroundColor', '#202C36');
       document.body.style.setProperty('--elementsBackgroundColor', '#2B3844');
       document.body.style.setProperty('--textColor', '#fff');
@@ -39,11 +42,7 @@ const App = () => {
       document.body.style.removeProperty('--elementsBackgroundColor');
       document.body.style.removeProperty('--textColor');
     };
-  }, [darkMode]);
-
-  const handleThemeChange = () => {
-    setDarkMode((prevValue) => !prevValue);
-  };
+  }, [context?.theme]);
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -68,14 +67,14 @@ const App = () => {
 
   return (
     <>
-      <Header isDarkMode={darkMode} onThemeChange={handleThemeChange} />
+      <Header />
       <CountriesList
-        regionsList={worldRegions}
-        countriesList={filteredCountries}
-        searchInput={searchInput}
-        region={region}
-        onSearchInputChange={handleSearchInputChange}
-        onRegionChange={handleRegionChange}
+        regionsList={ worldRegions }
+        countriesList={ filteredCountries }
+        searchInput={ searchInput }
+        region={ region }
+        onSearchInputChange={ handleSearchInputChange }
+        onRegionChange={ handleRegionChange }
       />
     </>
   );

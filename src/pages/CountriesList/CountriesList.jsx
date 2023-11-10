@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Input from '../../components/Input/Input';
 import Card from '../../components/Card/Card';
 
@@ -13,46 +12,37 @@ const CountriesList = ({
 }) => (
     <div className="countries-list">
       <div className="countries-list__filters">
-        {/* search */}
+        { /* search */ }
         <Input
           type="search"
           label="Search for a Country..."
-          value={searchInput}
-          onChange={onSearchInputChange}
+          value={ searchInput }
+          onChange={ onSearchInputChange }
         />
 
-        {/* select */}
+        { /* select */ }
         <Input
           type="select"
           label="Filter by Region"
-          value={region}
-          onChange={onRegionChange}
-          options={regionsList}
+          value={ region }
+          onChange={ onRegionChange }
+          options={ regionsList }
         />
       </div>
 
       <ul className="countries-list__list">
-        {countriesList.map((country) => (
+        { countriesList.map((country) => (
           <li
             className="countries-list__list--item"
-            key={country.alpha2Code}
+            key={ country.alpha2Code }
           >
             <a href="#" className="countries-list__list--link">
-                <Card details={country} />
+                <Card details={ country } />
             </a>
           </li>
-        ))}
+        )) }
       </ul>
     </div>
 );
-
-CountriesList.propTypes = {
-  regionsList: PropTypes.array.isRequired,
-  countriesList: PropTypes.array.isRequired,
-  searchInput: PropTypes.string.isRequired,
-  region: PropTypes.string.isRequired,
-  onSearchInputChange: PropTypes.func.isRequired,
-  onRegionChange: PropTypes.func.isRequired,
-};
 
 export default CountriesList;
